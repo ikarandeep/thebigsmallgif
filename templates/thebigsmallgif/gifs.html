@@ -1,0 +1,6 @@
+{% for gif in gif_data %}
+<img src="{{gif.url}}" class="gif-preview">
+<a href="{{gif.giphyurl}}" class="view-on-giphy">View on Giphy</a>
+<div class="gif-size">{{gif.size}}</div>
+<br>
+{% endfor %}
