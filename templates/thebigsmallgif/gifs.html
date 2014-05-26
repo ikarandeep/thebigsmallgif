@@ -1,6 +1,128 @@
-{% for gif in gif_data %}
-<img src="{{gif.url}}" class="gif-preview">
-<a href="{{gif.giphyurl}}" class="view-on-giphy">View on Giphy</a>
-<div class="gif-size">{{gif.size}}</div>
-<br>
-{% endfor %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js" /></script>
+
+{# Load the tag library #}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{# Read the documentation for more information #}
+
+
+<style>
+body{color: #333;
+font-size: 40px;
+background-color: white;}
+.jumbotron{margin-bottom: 30px;
+background-color: #00CCD6;
+color: white;
+width: 100%;}
+
+
+
+
+a{color: #FFD900;}
+a:hover{color: #333; text-decoration: none; background-color: #FFD900; color: white;}
+
+#result{font-size: 40px;
+background-color: #FFD900;
+color: white;
+padding: 10px;
+margin-top: 20px;
+margin-bottom: 20px;
+text-align: center;}
+
+
+
+.gif-size{font-size: 30px;}
+
+#footer {
+  position: relative;
+  bottom: 0;
+  font-size: 10px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 20px;
+  padding-top: 5px;
+  color: #333;
+  text-align: center;
+}
+.btn-primary{background-color: #333;
+border: none;
+border-radius: 0;}
+.jumbotron .btn-primary{position: relative;
+left: -15px}
+
+
+.btn-primary:hover{background-color: #FFD900; color: white}
+
+
+
+
+
+</style>
+
+<script>
+$(function(){
+		$("#submit_post").click(function(){
+			var q=$("#query").val();
+			var s=$("#size").val();
+			var o=0;
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+			$('.theContent').fadeOut('slow',function(){
+			$('.theContent').empty();
+			$.get("/",{query:q,size:s,offset:o,refresh:"no"},function(result){
+				$('.theContent').append(result);			
+				$('#result').empty();
+				$('#result').append(q);
+				$('.theContent').fadeIn('slow');
+			});
+			console.log("SEARCH");
+
+			})
+		});
+	})
+
+</script>
+
+
+
+
+<div class="row clearfix">
+		<div class="jumbotron">
+			<div class="container">
+				<div class="col-md-7 column">
+				<h1>Search Giphy by size</h1>
+				</div>
+				<div class="col-md-5 column">
+					<div class="container">
+						<form class="form-horizontal">
+						    <div class="form-group">
+							    <input id="query" name="query" type="text" placeholder="search: harry potter, lol, robots" class="form-control">
+						    </div>
+						    <div class="form-group">
+							    <input id="size" name="size" type="text" placeholder="size (in KB): 500" class="form-control">
+						    </div>
+							  <input type="submit" id="submit_post" class="btn btn-primary" value="search" onclick="return false;">
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row clearfix">
+			<div class="col-md-12 column">
+					<div class="theContent">
+					{% include "thebigsmallgif/gif_entry.html" %}
+					</div>
+			</div>
+	</div>
+</div>
+
+<div id="footer"><div class="container"><p class="muted credit">Made with <span class="glyphicon glyphicon-heart"></span> in California by <a href="http://twitter.com/karandeepsingh">@karandeepsingh</a></p></div></div>

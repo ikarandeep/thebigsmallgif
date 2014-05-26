@@ -1,2 +1,4 @@
 requests
 django
+django-bootstrap3
+django-jquery
