@@ -22,14 +22,21 @@ background-color: #00CCD6;
 color: white;
 width: 100%;}
 
-
-
+#url-goes-here {background-color: #FFD900;
+padding: 10px;
+margin-top:0px;
+color: white;
+text-align: center;}
+#url-goes-here:hover{background-color: #333;}
+#url-goes-here a{font-size: 25px;color: white;}
+#url-goes-here a:hover{color: white;
+background-color: #333;}
 
 a{color: #FFD900;}
 a:hover{color: #333; text-decoration: none; background-color: #FFD900; color: white;}
 
 #result{font-size: 40px;
-background-color: #FFD900;
+background-color: #333;
 color: white;
 padding: 10px;
 margin-top: 20px;
@@ -66,9 +73,18 @@ left: -15px}
 
 
 
+
 </style>
 
+
+
+
 <script>
+// $( document ).ready(function() {
+//     console.log( "ready!" );
+//     console.log(document.URL);
+// });
+
 $(function(){
 		$("#submit_post").click(function(){
 			var q=$("#query").val();
@@ -81,13 +97,18 @@ $(function(){
 			$("html, body").animate({ scrollTop: 0 }, "slow");
 			$('.theContent').fadeOut('slow',function(){
 			$('.theContent').empty();
-			$.get("/",{query:q,size:s,offset:o,refresh:"no"},function(result){
+			var qdash=q.replace(/\s+/g, '-').toLowerCase();
+			var url="query=" + qdash + "&size=" + s + "&offset=" + o;
+			console.log(url)
+			$.get("/",{query:qdash,size:s,offset:o,refresh:"no"},function(result){
 				$('.theContent').append(result);			
 				$('#result').empty();
 				$('#result').append(q);
 				$('#result').append(" gifs under ");
 				$('#result').append(s);
 				$('#result').append(" kb");
+				$('#url-goes-here').empty();
+				$('#url-goes-here').append('<a href="?' + url + '">' + url + '</a>');
 				$('.theContent').fadeIn('slow');
 			});
 			console.log("SEARCH");
@@ -97,7 +118,6 @@ $(function(){
 	})
 
 </script>
-
 
 
 

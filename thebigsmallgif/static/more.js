@@ -10,13 +10,18 @@ $(function(){
 			$("html, body").animate({ scrollTop: 0 }, "slow");
 			$('.theContent').fadeOut('slow',function(){
 			$('.theContent').empty();
-			$.get("/",{query:q,size:s,offset:o,refresh:"yes"},function(result){
+			var qdash=q.replace(/\s+/g, '-').toLowerCase();
+			var url="query=" + qdash + "&size=" + s + "&offset=" + o;
+			console.log("?query=" + qdash + "&size=" + s + "&offset=" + o)
+			$.get("/",{query:qdash,size:s,offset:o,refresh:"yes"},function(result){
 				$('.theContent').append(result);			
 				$('#result').empty();
 				$('#result').append(q);
 				$('#result').append(" gifs under ");
 				$('#result').append(s);
 				$('#result').append(" kb");
+				$('#url-goes-here').empty();
+				$('#url-goes-here').append('<a href="?' + url + '">' + url + '</a>');
 				$('.theContent').fadeIn('slow');
 			});
 			console.log("MORE!");
