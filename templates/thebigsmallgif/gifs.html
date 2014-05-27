@@ -73,6 +73,10 @@ $(function(){
 		$("#submit_post").click(function(){
 			var q=$("#query").val();
 			var s=$("#size").val();
+			if (s == "")
+			{
+				s=500
+			}
 			var o=0;
 			$("html, body").animate({ scrollTop: 0 }, "slow");
 			$('.theContent').fadeOut('slow',function(){
@@ -81,6 +85,9 @@ $(function(){
 				$('.theContent').append(result);			
 				$('#result').empty();
 				$('#result').append(q);
+				$('#result').append(" gifs under ");
+				$('#result').append(s);
+				$('#result').append(" kb");
 				$('.theContent').fadeIn('slow');
 			});
 			console.log("SEARCH");

@@ -42,7 +42,7 @@ def home(request, template_name="thebigsmallgif/gifs.html", extra_context=None):
 		gif_size =  int(gif['images']['original']['size'])/1024
 		giphyurl = str(gif['url'])
 		gif_data.append({'url':url,'gif_size':gif_size,'giphyurl':giphyurl})
-	return render_to_response(template_name,{'STATIC_URL':STATIC_URL,'gif_data':gif_data,'offset':offset,'query':query,'size':size, 'base':"thebigsmallgif/base.html"},RequestContext(request))
+	return render_to_response(template_name,{'STATIC_URL':STATIC_URL,'gif_data':gif_data,'offset':offset,'query':query,'size':size, 'js':"thebigsmallgif/more.js"},RequestContext(request))
 
 def getGifs(query,size,offset):
 	gifdata = []
